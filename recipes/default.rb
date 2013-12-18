@@ -45,7 +45,7 @@ execute "Install ruby-build" do
   cwd       src_path
   command   %{./install.sh}
 
-  action    :nothing
+#  action    :nothing
   not_if do
     ::File.exists?("/usr/local/bin/ruby-build") && upgrade_strategy == "none"
   end
