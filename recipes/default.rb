@@ -41,11 +41,10 @@ unless mac_with_no_homebrew
   end
 end
 
-execute "Install ruby-build" do
+execute "install-ruby-build" do
   cwd       src_path
   command   %{./install.sh}
-
-#  action    :nothing
+  action    :nothing
   not_if do
     ::File.exists?("/usr/local/bin/ruby-build") && upgrade_strategy == "none"
   end
@@ -65,5 +64,5 @@ git src_path do #~FC043 exception to support AWS OpsWorks using an older Chef
     action    :sync
   end
 
-  notifies :run, resources(:execute => "Install ruby-build"), :immediately
+  notifies :run, "execute[install-ruby-build]", :immediately
 end
